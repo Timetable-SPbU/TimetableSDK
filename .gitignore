@@ -1,0 +1,11 @@
+
+# Created by https://www.gitignore.io/api/swiftpackagemanager
+
+### SwiftPackageManager ###
+Packages
+.build/
+xcuserdata
+DerivedData/
+*.xcodeproj
+
+# End of https://www.gitignore.io/api/swiftpackagemanager
