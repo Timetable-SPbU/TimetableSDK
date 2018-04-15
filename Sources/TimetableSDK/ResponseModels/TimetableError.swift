@@ -5,9 +5,10 @@
 //  Created by Sergej Jaskiewicz on 12/04/2018.
 //
 
-import Foundation
+import Hammond
+import struct Foundation.URL
 
-public struct TimetableError: Error, Decodable {
+public struct TimetableError: ServerErrorProtocol {
 
     public var statusCode: HTTPStatusCode?
 
@@ -17,10 +18,10 @@ public struct TimetableError: Error, Decodable {
 
     public var helpURL: URL?
 
-    internal init(statusCode: HTTPStatusCode?,
-                  statusCodeDescription: String?,
-                  errors: [String],
-                  helpURL: URL? = nil) {
+    public init(statusCode: HTTPStatusCode?,
+                statusCodeDescription: String?,
+                errors: [String],
+                helpURL: URL? = nil) {
         self.statusCode = statusCode
         self.statusCodeDescription = statusCodeDescription
         self.errors = errors
@@ -43,7 +44,16 @@ public struct TimetableError: Error, Decodable {
         errors =
             try container.decodeIfPresent([String].self, forKey: .errors) ?? []
 
-        helpURL
-            = try container.decodeIfPresent(URL.self, forKey: .helpURL)
+        helpURL =
+            try container.decodeIfPresent(URL.self, forKey: .helpURL)
+    }
+
+    public static func defaultError(
+        for statusCode: HTTPStatusCode
+    ) -> TimetableError {
+
+        return TimetableError(statusCode: statusCode,
+                              statusCodeDescription: statusCode.description,
+                              errors: [])
     }
 }

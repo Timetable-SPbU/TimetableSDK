@@ -5,8 +5,6 @@
 //  Created by Sergej Jaskiewicz on 12/04/2018.
 //
 
-import Foundation
-
 extension StudyLevel {
 
     /// A study program (aka specialization) model.
@@ -20,6 +18,14 @@ extension StudyLevel {
 
         /// The list of admission years available for this program
         public var admissionYears: [AdmissionYear]
+
+        public init(name: String?,
+                    englishName: String?,
+                    admissionYears: [AdmissionYear]) {
+            self.name = name
+            self.englishName = englishName
+            self.admissionYears = admissionYears
+        }
 
         private enum CodingKeys: String, CodingKey {
             case name           = "Name"

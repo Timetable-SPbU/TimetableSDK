@@ -8,7 +8,7 @@
 /// Returns the list of study levels with study programs for the division.
 ///
 ///     GET /api/v1/study/divisions/{alias}/programs/levels
-public struct StudyLevelRequest: TimetableDecodableRequest {
+public struct StudyLevelRequest: TimetableDecodableRequestProtocol {
 
     /// The division's short name code (alias)
     public var divisionAlias: DivisionAlias
@@ -23,10 +23,6 @@ public struct StudyLevelRequest: TimetableDecodableRequest {
     public var path: String {
         return "/api/v1/study/divisions/\(divisionAlias)/programs/levels"
     }
-
-    public var method: HTTPMethod { return .get }
-
-    public var parameters: [String : Any] { return [:] }
 
     public typealias Result = [StudyLevel]
 }

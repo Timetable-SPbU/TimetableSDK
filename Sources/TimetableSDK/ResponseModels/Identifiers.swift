@@ -59,3 +59,21 @@ public struct StudyProgramID: TimetableIdentifier {
         self.rawValue = rawValue
     }
 }
+
+public struct StudentGroupID: TimetableIdentifier {
+
+    public var rawValue: Int
+
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+}
+
+public struct EducatorID: TimetableIdentifier {
+
+    public var rawValue: Int
+
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+}

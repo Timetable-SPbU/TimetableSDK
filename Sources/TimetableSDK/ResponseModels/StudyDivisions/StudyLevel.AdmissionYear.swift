@@ -5,8 +5,6 @@
 //  Created by Sergej Jaskiewicz on 12/04/2018.
 //
 
-import Foundation
-
 extension StudyLevel {
 
     public struct AdmissionYear: Decodable, Equatable {
@@ -27,6 +25,18 @@ extension StudyLevel {
             case number         = "YearNumber"
             case isEmpty        = "IsEmpty"
             case divisionAlias  = "PublicDivisionAlias"
+        }
+
+        public init(studyProgramID: StudyProgramID?,
+                    name: String? = nil,
+                    number: Int?,
+                    isEmpty: Bool,
+                    divisionAlias: DivisionAlias?) {
+            self.studyProgramID = studyProgramID
+            self.name = name ?? number.map(String.init)
+            self.number = number
+            self.isEmpty = isEmpty
+            self.divisionAlias = divisionAlias
         }
 
         public init(from decoder: Decoder) throws {

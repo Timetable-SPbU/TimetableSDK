@@ -5,25 +5,13 @@
 //  Created by Sergej Jaskiewicz on 12/04/2018.
 //
 
-#if canImport(Alamofire)
+public struct HTTPMethod: RawRepresentable, Hashable {
 
-import enum Alamofire.HTTPMethod
-public typealias HTTPMethod = Alamofire.HTTPMethod
+    public var rawValue: String
 
-#else
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
 
-/// HTTP method definitions.
-///
-/// See https://tools.ietf.org/html/rfc7231#section-4.3
-public enum HTTPMethod: String {
-    case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
-    case connect = "CONNECT"
+    static let get = HTTPMethod(rawValue: "GET")
 }
-#endif

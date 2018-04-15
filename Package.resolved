@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Hammond",
+        "repositoryURL": "https://github.com/broadwaylamb/Hammond.git",
+        "state": {
+          "branch": "master",
+          "revision": "69dd0fbaaded6a18a2beacc802f088440d6e37de",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
