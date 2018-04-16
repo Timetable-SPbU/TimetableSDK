@@ -24,20 +24,32 @@ public struct StudentGroupEventsRequest: TimetableDecodableRequestProtocol {
         case range(from: Date, to: Date)
     }
 
+    public enum Timetable: Int {
+        case all = 0
+        case primary
+        case attestation
+        case final
+    }
+
     /// The student group identifier.
     public var studentGroupID: StudentGroupID
 
     /// The time interval to fetch the events for.
     public var timeInterval: TimeInterval
 
+    public var timetable: Timetable
+
     /// Creates a new student group events request.
     ///
     /// - Parameters:
     ///   - studentGroupID: The student group identifier.
     ///   - timeInterval: The time interval to fetch the events for.
-    public init(studentGroupID: StudentGroupID, timeInterval: TimeInterval) {
+    public init(studentGroupID: StudentGroupID,
+                timeInterval: TimeInterval = .currentWeek,
+                timetable: Timetable = .all) {
         self.studentGroupID = studentGroupID
         self.timeInterval = timeInterval
+        self.timetable = timetable
     }
 
     public var path: String {
@@ -55,6 +67,12 @@ public struct StudentGroupEventsRequest: TimetableDecodableRequestProtocol {
             let endString = Decoding.shortDateFormatter.string(from: end)
             return defaultPath + "/\(startString)/\(endString)"
         }
+    }
+
+    public var query: [URLQueryItem] {
+        return [
+            URLQueryItem(name: "timetable", value: String(timetable.rawValue))
+        ]
     }
 
     public typealias Result = StudentGroup.Day.List

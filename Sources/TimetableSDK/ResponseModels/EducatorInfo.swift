@@ -20,4 +20,15 @@ public struct EducatorInfo: Equatable, Decodable {
         case identifier = "Item1"
         case name       = "Item2"
     }
+
+    public init(from decoder: Decoder) throws {
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        identifier = try container
+            .decodeIfPresent(EducatorID.self, forKey: .identifier)
+
+        name = try container
+            .decodeIfPresent(String.self, forKey: .name)?.nilIfEmpty
+    }
 }

@@ -38,14 +38,15 @@ public struct StudyLevel: Decodable, Equatable {
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        name =
-            try container.decodeIfPresent(String.self, forKey: .name)
+        name = try container
+            .decodeIfPresent(String.self, forKey: .name)?
+            .nilIfEmpty
 
-        englishName =
-            try container.decodeIfPresent(String.self, forKey: .englishName)
+        englishName = try container
+            .decodeIfPresent(String.self, forKey: .englishName)?
+            .nilIfEmpty
 
-        programs =
-            try container.decodeIfPresent([Program].self,
-                                          forKey: .programs) ?? []
+        programs = try container
+            .decodeIfPresent([Program].self, forKey: .programs) ?? []
     }
 }

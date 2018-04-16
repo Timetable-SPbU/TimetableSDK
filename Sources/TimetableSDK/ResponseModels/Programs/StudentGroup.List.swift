@@ -36,13 +36,12 @@ extension StudentGroup {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            studyProgramID =
-                try container.decodeIfPresent(StudyProgramID.self,
-                                              forKey: .studyProgramID)
+            studyProgramID = try container
+                .decodeIfPresent(StudyProgramID.self, forKey: .studyProgramID)
 
-            studentGroups =
-                try container.decodeIfPresent([StudentGroup].self,
-                                              forKey: .studentGroups) ?? []
+            studentGroups = try container
+                .decodeIfPresent([StudentGroup].self,
+                                 forKey: .studentGroups) ?? []
         }
     }
 }

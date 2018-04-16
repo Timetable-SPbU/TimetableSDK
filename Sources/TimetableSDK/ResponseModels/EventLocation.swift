@@ -70,20 +70,21 @@ public struct EventLocation: Equatable, Decodable {
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        displayName =
-            try container.decodeIfPresent(String.self, forKey: .displayName)
+        displayName = try container
+            .decodeIfPresent(String.self, forKey: .displayName)?
+            .nilIfEmpty
 
-        let latitude =
-            try container.decodeIfPresent(Double.self, forKey: .latitude)
+        let latitude = try container
+            .decodeIfPresent(Double.self, forKey: .latitude)
 
-        let longitude =
-            try container.decodeIfPresent(Double.self, forKey: .longitude)
+        let longitude = try container
+            .decodeIfPresent(Double.self, forKey: .longitude)
 
-        let latitudeString =
-            try container.decodeIfPresent(String.self, forKey: .latitudeValue)
+        let latitudeString = try container
+            .decodeIfPresent(String.self, forKey: .latitudeValue)
 
-        let longitudeString =
-            try container.decodeIfPresent(String.self, forKey: .longitudeValue)
+        let longitudeString = try container
+            .decodeIfPresent(String.self, forKey: .longitudeValue)
 
         let coordinates = latitude.flatMap { latitude in
             longitude.map { longitude in
@@ -103,19 +104,18 @@ public struct EventLocation: Equatable, Decodable {
                 }
             }
 
-        educatorsDisplayText =
-            try container.decodeIfPresent(String.self,
-                                          forKey: .educatorsDisplayText)
+        educatorsDisplayText = try container
+            .decodeIfPresent(String.self, forKey: .educatorsDisplayText)?
+            .nilIfEmpty
 
         let educators = try container
-            .decodeIfPresent([EducatorInfo].self,
-                             forKey: .educators) ?? []
+            .decodeIfPresent([EducatorInfo].self, forKey: .educators) ?? []
 
         self.educators = educators
 
         hasEducators = try container
-                .decodeIfPresent(Bool.self,
-                                 forKey: .hasEducators) ?? !educators.isEmpty
+            .decodeIfPresent(Bool.self,
+                             forKey: .hasEducators) ?? !educators.isEmpty
 
         isEmpty = try container
             .decodeIfPresent(Bool.self, forKey: .isEmpty) ?? false

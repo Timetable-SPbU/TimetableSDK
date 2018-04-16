@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "CCurl",
+        "repositoryURL": "https://github.com/dmcyk/CCurl.git",
+        "state": {
+          "branch": null,
+          "revision": "30249c84f0d004008901bc6bf4c8bc1a4e57b6aa",
+          "version": "0.2.0"
+        }
+      },
+      {
         "package": "Hammond",
         "repositoryURL": "https://github.com/broadwaylamb/Hammond.git",
         "state": {
           "branch": "master",
           "revision": "69dd0fbaaded6a18a2beacc802f088440d6e37de",
           "version": null
+        }
+      },
+      {
+        "package": "SwiftyCurl",
+        "repositoryURL": "https://github.com/dmcyk/SwiftyCurl.git",
+        "state": {
+          "branch": null,
+          "revision": "a431b5ec0a04e98d8fbcb54b2d1d2dd19ed45ed5",
+          "version": "1.0.0"
         }
       }
     ]

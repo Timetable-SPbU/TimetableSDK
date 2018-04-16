@@ -44,15 +44,17 @@ extension StudentGroup {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            date = try container.decodeIfPresent(String.self, forKey: .date)
+            date = try container
+                .decodeIfPresent(String.self, forKey: .date)
                 .flatMap(Decoding.fullDateFormatter.date(from:))
 
-            displayText =
-                try container.decodeIfPresent(String.self, forKey: .displayText)
+            displayText = try container
+                .decodeIfPresent(String.self, forKey: .displayText)?
+                .nilIfEmpty
 
-            events =
-                try container.decodeIfPresent([StudentGroup.Event].self,
-                                              forKey: .events) ?? []
+            events = try container
+                .decodeIfPresent([StudentGroup.Event].self,
+                                 forKey: .events) ?? []
         }
     }
 }
@@ -134,36 +136,31 @@ extension StudentGroup.Day {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            studentGroupID =
-                try container.decodeIfPresent(StudentGroupID.self,
-                                              forKey: .studentGroupID)
+            studentGroupID = try container
+                .decodeIfPresent(StudentGroupID.self, forKey: .studentGroupID)
 
-            studentGroupDisplayName =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .studentGroupDisplayName)
+            studentGroupDisplayName = try container
+                .decodeIfPresent(String.self, forKey: .studentGroupDisplayName)?
+                .nilIfEmpty
 
-            previousWeekMonday =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .previousWeekMonday)
-                    .flatMap(Decoding.shortDateFormatter.date(from:))
+            previousWeekMonday = try container
+                .decodeIfPresent(String.self, forKey: .previousWeekMonday)
+                .flatMap(Decoding.shortDateFormatter.date(from:))
 
-            currentWeekMonday =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .currentWeekMonday)
-                    .flatMap(Decoding.shortDateFormatter.date(from:))
+            currentWeekMonday = try container
+                .decodeIfPresent(String.self, forKey: .currentWeekMonday)
+                .flatMap(Decoding.shortDateFormatter.date(from:))
 
-            nextWeekMonday =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .nextWeekMonday)
-                    .flatMap(Decoding.shortDateFormatter.date(from:))
+            nextWeekMonday = try container
+                .decodeIfPresent(String.self, forKey: .nextWeekMonday)
+                .flatMap(Decoding.shortDateFormatter.date(from:))
 
-            weekDisplayText =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .weekDisplayText)
+            weekDisplayText = try container
+                .decodeIfPresent(String.self, forKey: .weekDisplayText)?
+                .nilIfEmpty
 
-            days =
-                try container.decodeIfPresent([StudentGroup.Day].self,
-                                              forKey: .days) ?? []
+            days = try container
+                .decodeIfPresent([StudentGroup.Day].self, forKey: .days) ?? []
         }
     }
 }

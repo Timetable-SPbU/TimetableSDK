@@ -8,12 +8,17 @@
 public protocol TimetableIdentifier: RawRepresentable,
                                      Hashable,
                                      CustomStringConvertible,
+                                     CustomDebugStringConvertible,
                                      Codable {}
 
 extension TimetableIdentifier where RawValue: Codable {
 
     public var description: String {
         return String(describing: rawValue)
+    }
+
+    public var debugDescription: String {
+        return description
     }
 
     public init(from decoder: Decoder) throws {

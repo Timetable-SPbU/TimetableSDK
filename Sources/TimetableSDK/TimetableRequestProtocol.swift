@@ -6,14 +6,20 @@
 //
 
 import Hammond
-import struct Foundation.Data
+import Foundation
 
 public protocol TimetableRequestProtocol: RequestProtocol {
+
     var method: HTTPMethod { get }
+
+    var query: [URLQueryItem] { get }
 }
 
 extension TimetableRequestProtocol {
+
     public var method: HTTPMethod { return .get }
+
+    public var query: [URLQueryItem] { return [] }
 }
 
 public protocol TimetableDecodableRequestProtocol: TimetableRequestProtocol,

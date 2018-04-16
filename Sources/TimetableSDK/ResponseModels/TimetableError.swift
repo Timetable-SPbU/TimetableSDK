@@ -41,6 +41,13 @@ public struct TimetableError: ServerErrorProtocol {
         statusCodeDescription =
             try container.decodeIfPresent(String.self,
                                           forKey: .statusCodeDescription)
+
+        // Assuming `statusCodeDescription` has the format
+        // "400 (BadRequest)"
+        statusCode = (statusCodeDescription?.prefix(3))
+            .flatMap { Int($0) }
+            .map(HTTPStatusCode.init)
+
         errors =
             try container.decodeIfPresent([String].self, forKey: .errors) ?? []
 

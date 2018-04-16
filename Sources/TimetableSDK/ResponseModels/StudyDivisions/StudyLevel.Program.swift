@@ -37,15 +37,17 @@ extension StudyLevel {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            name =
-                try container.decodeIfPresent(String.self, forKey: .name)
+            name = try container
+                .decodeIfPresent(String.self, forKey: .name)?
+                .nilIfEmpty
 
-            englishName =
-                try container.decodeIfPresent(String.self, forKey: .englishName)
+            englishName = try container
+                .decodeIfPresent(String.self, forKey: .englishName)?
+                .nilIfEmpty
 
-            admissionYears =
-                try container.decodeIfPresent([AdmissionYear].self,
-                                              forKey: .admissionYears) ?? []
+            admissionYears = try container
+                .decodeIfPresent([AdmissionYear].self,
+                                 forKey: .admissionYears) ?? []
         }
     }
 }

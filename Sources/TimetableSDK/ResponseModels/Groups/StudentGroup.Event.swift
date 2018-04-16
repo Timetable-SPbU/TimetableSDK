@@ -180,46 +180,48 @@ extension StudentGroup {
 
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
-            start = try container.decodeIfPresent(String.self, forKey: .start)
+            start = try container
+                .decodeIfPresent(String.self, forKey: .start)
                 .flatMap(Decoding.fullDateFormatter.date(from:))
 
-            end = try container.decodeIfPresent(String.self, forKey: .end)
+            end = try container
+                .decodeIfPresent(String.self, forKey: .end)
                 .flatMap(Decoding.fullDateFormatter.date(from:))
 
-            subject =
-                try container.decodeIfPresent(String.self, forKey: .subject)
+            subject = try container
+                .decodeIfPresent(String.self, forKey: .subject)?
+                .nilIfEmpty
 
-            timeIntervalString =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .timeIntervalString)
+            timeIntervalString = try container
+                .decodeIfPresent(String.self, forKey: .timeIntervalString)?
+                .nilIfEmpty
 
             dateWithTimeIntervalString = try container
-                    .decodeIfPresent(String.self,
-                                     forKey: .dateWithTimeIntervalString)
+                .decodeIfPresent(String.self,
+                                 forKey: .dateWithTimeIntervalString)?
+                .nilIfEmpty
 
             displayDateAndTimeIntervalString = try container
-                    .decodeIfPresent(String.self,
-                                     forKey: .displayDateAndTimeIntervalString)
+                .decodeIfPresent(String.self,
+                                 forKey: .displayDateAndTimeIntervalString)?
+                .nilIfEmpty
 
-            locationsDisplayText =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .locationsDisplayText)
+            locationsDisplayText = try container
+                .decodeIfPresent(String.self, forKey: .locationsDisplayText)?
+                .nilIfEmpty
 
-            educatorsDisplayText =
-                try container.decodeIfPresent(String.self,
-                                              forKey: .educatorsDisplayText)
+            educatorsDisplayText = try container
+                .decodeIfPresent(String.self, forKey: .educatorsDisplayText)?
+                .nilIfEmpty
 
-            isCancelled =
-                try container.decodeIfPresent(Bool.self,
-                                              forKey: .isCancelled) ?? false
+            isCancelled = try container
+                .decodeIfPresent(Bool.self, forKey: .isCancelled) ?? false
 
-            isAssigned =
-                try container.decodeIfPresent(Bool.self,
-                                              forKey: .isAssigned) ?? false
+            isAssigned = try container
+                .decodeIfPresent(Bool.self, forKey: .isAssigned) ?? false
 
-            timeWasChanged =
-                try container.decodeIfPresent(Bool.self,
-                                              forKey: .timeWasChanged) ?? false
+            timeWasChanged = try container
+                .decodeIfPresent(Bool.self, forKey: .timeWasChanged) ?? false
 
             locationsWereChanged = try container
                 .decodeIfPresent(Bool.self,

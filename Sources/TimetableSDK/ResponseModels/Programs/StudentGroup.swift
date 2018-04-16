@@ -36,4 +36,24 @@ public struct StudentGroup: Equatable, Decodable {
         case profiles      = "StudentGroupProfiles"
         case divisionAlias = "PublicDivisionAlias"
     }
+
+    public init(from decoder: Decoder) throws {
+
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try container
+            .decodeIfPresent(StudentGroupID.self, forKey: .id)
+
+        name = try container
+            .decodeIfPresent(String.self, forKey: .name)?
+            .nilIfEmpty
+
+        studyForm = try container
+            .decodeIfPresent(String.self, forKey: .studyForm)?
+            .nilIfEmpty
+
+        profiles = try container
+            .decodeIfPresent(String.self, forKey: .profiles)?
+            .nilIfEmpty
+    }
 }
