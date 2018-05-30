@@ -35,8 +35,6 @@ private struct TestError: Error {
 
 extension XCTestCase {
 
-    private static let connection = cURLConnection(useSSL: false)
-
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -114,7 +112,8 @@ extension XCTestCase {
         }
 
         do {
-            let response = try XCTestCase.connection.request(curlRequest)
+            let connection = cURLConnection(useSSL: false, timeout: 60)
+            let response = try connection.request(curlRequest)
 
             if logging {
                 let prettyPrintedResponseHeaders = response.headers
@@ -160,5 +159,17 @@ extension XCTestCase {
         } catch {
             fatalError("Unexpected error")
         }
+    }
+}
+
+@available(macOS 10.11, iOS 9.0, tvOS 9.0, watchOS 2.0, *)
+extension PersonNameComponents {
+
+    init(firstName: String?, middleName: String?, lastName: String?) {
+        var pnc = PersonNameComponents()
+        pnc.givenName = firstName
+        pnc.middleName = middleName
+        pnc.familyName = lastName
+        self = pnc
     }
 }
