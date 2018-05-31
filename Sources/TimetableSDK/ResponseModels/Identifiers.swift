@@ -5,6 +5,8 @@
 //  Created by Sergej Jaskiewicz on 12/04/2018.
 //
 
+import Foundation
+
 public protocol TimetableIdentifier: RawRepresentable,
                                      Hashable,
                                      CustomStringConvertible,
@@ -79,6 +81,24 @@ public struct EducatorID: TimetableIdentifier {
     public var rawValue: Int
 
     public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+}
+
+public struct AddressID: TimetableIdentifier {
+
+    public var rawValue: UUID
+
+    public init(rawValue: UUID) {
+        self.rawValue = rawValue
+    }
+}
+
+public struct ClassroomID: TimetableIdentifier {
+
+    public var rawValue: UUID
+
+    public init(rawValue: UUID) {
         self.rawValue = rawValue
     }
 }

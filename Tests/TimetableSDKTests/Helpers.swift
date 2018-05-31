@@ -142,6 +142,7 @@ extension XCTestCase {
             // we retry the request with logging turned on
             // to see what went wrong.
             if !logging {
+                log("Request failed. Retrying with logging turned on...")
                 return try performRequest(request, logging: true)
             } else {
                 throw TestError(file: file, line: line, error: error)

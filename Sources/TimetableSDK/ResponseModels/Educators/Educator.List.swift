@@ -16,6 +16,11 @@ extension Educator {
 
         public var educators: [Educator]
 
+        public init(lastNameQuery: String?, educators: [Educator]) {
+            self.lastNameQuery = lastNameQuery
+            self.educators = educators
+        }
+
         private enum CodingKeys: String, CodingKey {
             case lastNameQuery = "EducatorLastNameQuery"
             case educators     = "Educators"

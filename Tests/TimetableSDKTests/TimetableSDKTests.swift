@@ -26,7 +26,7 @@ final class TimetableSDKTests: XCTestCase {
             """)
 
         guard let divisionAlias = division.alias else {
-            log("Division alias is empty, skipping…")
+            XCTFail("Division alias is empty, skipping...")
             return
         }
 
@@ -59,7 +59,7 @@ final class TimetableSDKTests: XCTestCase {
 
 
                 guard let studyProgramID = admissionYear.studyProgramID else {
-                    log("Study program ID is empty, skipping…")
+                    XCTFail("Study program ID is empty, skipping...")
                     continue
                 }
 
@@ -80,7 +80,7 @@ final class TimetableSDKTests: XCTestCase {
             """)
 
         guard let studentGroupID = studentGroup.id else {
-            log("Student group ID is empty, skipping…")
+            XCTFail("Student group ID is empty, skipping...")
             return
         }
 
@@ -105,10 +105,53 @@ final class TimetableSDKTests: XCTestCase {
 
             log("\(result.educators.count) educators fetched.")
 
+            XCTAssertGreaterThan(result.educators.count, 0)
+
             for educator in result.educators {
                 XCTAssertNotNil(educator.name?.givenName)
                 XCTAssertNotNil(educator.name?.familyName)
             }
+        }
+    }
+
+    func testFetchAddressesWithClassrooms() {
+        assertNoThrow {
+
+            let addresses = try performRequest(AddressesRequest())
+
+            log("\(addresses.count) addresses fetched.")
+
+            XCTAssertGreaterThan(addresses.count, 0)
+
+            for address in addresses {
+                XCTAssertNotNil(address.id)
+                XCTAssertNotNil(address.name)
+
+                try fetchClassroms(for: address)
+            }
+        }
+    }
+
+    private func fetchClassroms(for address: Address) throws {
+
+        guard let addressID = address.id else {
+            XCTFail("Address ID is empty, skipping...")
+            return
+        }
+
+        let request = ClassroomsRequest(addressID: addressID)
+        let classrooms = try performRequest(request)
+
+        log("""
+            \(classrooms.count) classrooms fetched for \
+            \(address.name ?? "<nil>").
+            """)
+
+        XCTAssertGreaterThan(classrooms.count, 0)
+
+        for classroom in classrooms {
+            XCTAssertNotNil(classroom.id)
+            XCTAssertNotNil(classroom.name)
         }
     }
 
