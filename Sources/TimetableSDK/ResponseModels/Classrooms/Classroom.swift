@@ -73,6 +73,6 @@ public struct Classroom: Equatable, Decodable {
         capacity = try container.decodeIfPresent(Int.self, forKey: .capacity)
 
         additionalInfo = try container
-            .decodeIfPresent(String.self, forKey: .additionalInfo)
+            .decodeIfPresent(String.self, forKey: .additionalInfo)?.nilIfEmpty
     }
 }
